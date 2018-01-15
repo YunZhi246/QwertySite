@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QWERTY Scans | Upload</title>
+    <!--link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'reader/style.css' %}" /-->
+  </head>
+  <body>
+    <a href="home.html">
+      <h1>QWERTY Scans</h1>
+    </a>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% if chapter_uploaded %}<p>A chapter of {{ chapter_uploaded }} was uploaded.</p>{% endif %}
+
+    <form action="{% url 'reader:submitChapter' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <select name="manga" size="3">
+        {% for manga in manga_list %}
+          <option value="{{ manga.id }}">{{ manga.title }}</option>
+        {% endfor %}
+      </select>
+      <br/>
+      <p>Volume Number: </p><input type="number" name="vol_number" min="0">
+      <br/>
+      <p>Chapter Number: </p><input type="number" name="chap_number" min="0">
+      <br/>
+      <p>Title: </p><input type="text" name="title">
+      <br/><br/>
+      <input type="file" name="chapter_file">
+      <br/><br/><br/>
+      <input type="submit" value="Upload" />
+    </form>
+    <br/>
+  </body>
+</html>

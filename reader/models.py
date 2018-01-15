@@ -11,6 +11,19 @@ class Manga(models.Model):
   description = models.CharField(max_length=1000, blank=False)
   language = models.CharField(max_length=100, blank=True)
   genres = models.CharField(max_length=100, blank=True)
+  COMPLETED = 0
+  CURRENT = 1
+  HIATUS = 2
+  DROPPED = 3
+  FUTURE = 4
+  status_choices = (
+    (COMPLETED, 'Completed'),
+    (CURRENT, 'Current'),
+    (HIATUS, 'Hiatus'),
+    (DROPPED, 'Dropped'),
+    (FUTURE, 'Future'),
+  )
+  status = models.CharField(max_length=10, choices=status_choices, default=CURRENT)
   joints = models.CharField(max_length=200, blank=True)
   pic_location = models.CharField(max_length=200, blank=False)
   storage_name = models.CharField(max_length=100, blank=False, unique=True)
@@ -25,7 +38,7 @@ class Chapter(models.Model):
   title = models.CharField(max_length=200, blank=True)
   num_pages = models.PositiveSmallIntegerField()
   user = models.ForeignKey(auth.models.User, on_delete=models.SET_NULL, null=True)
-  upload_date = models.DateTimeField('date uploaded')
+  upload_date = models.DateTimeField('date uploaded', editable=False)
   storage_name = models.CharField(max_length=100, blank=False)
   def __str__(self):
     displayName = " Chapter ".join(chap_number)
@@ -38,7 +51,7 @@ class Chapter(models.Model):
 class Page(models.Model):
   chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)  
   number = models.PositiveSmallIntegerField()
-  storage_name = models.CharField(max_length=100, blank=False)
+  image = models.ImageField(max_length=200, blank=False)
   
   
   
