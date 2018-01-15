@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QWERTY Scans | Projects</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'reader/style.css' %}" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <a href="home.html">
+          <h1>QWERTY Scans</h1>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav">
+      <div class="container">
+        <ul>
+          <a class="btn" href="home.html">Home</a>
+          <a class="btn" href="about_us.html#">About</a>
+          <a class="btn selected" href="{% url 'reader:index' %}">Projects</a>
+          <a class="btn" href="recruitment.html">Recruitment</a>
+          <a class="btn" href="contact_us.html">Contact Us</a>
+        </ul>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="container">
+        <h2>Projects</h2>
+        {% if manga_list %}
+          <ul>
+          {% for manga in manga_list %}
+            <li><a href="{% url 'reader:index' %}">{{ manga.title }}</a></li>
+          {% endfor %}
+          </ul>
+        {% else %}
+          <p>No projects are available.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p>Disclaimer: ...I'll get to it at some point.</p>
+        <a href="{% url 'reader:upload' %}">Upload</a>
+      </div>
+    </div>
+  </body>
+</html>
