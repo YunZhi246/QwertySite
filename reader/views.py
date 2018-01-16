@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
+from django.db import models
 
 from .models import Manga, Chapter, Page
 
@@ -18,6 +19,56 @@ def index(request):
     'manga_list': mangaList,
   }
   return render(request, 'reader/index.html', context)
+
+def mangaDetail(request, mangaSeries):
+  try:
+    manga = Manga.objects.get(storage_name=mangaSeries)
+  except(KeyError, Choice.DoesNotExist):
+    render(request, 'reader/index.html')
+  chapterList = manga.chapter_set.order_by('-sort_number')[:]
+  context = {
+    'manga': manga,
+    'chapter_list': chapterList,
+  }
+  return render(request, 'reader/manga_details.html', context)  
+
+def stripReader(request, mangaSeries, chapterId):
+  try:
+    manga = Manga.objects.get(storage_name=mangaSeries)
+  except(KeyError, Choice.DoesNotExist):
+    render(request, 'reader/index.html')
+  try:
+    chapter = Chapter.objects.get(pk=chapterId)
+  except(KeyError, Choice.DoesNotExist):
+    render(request, 'reader/{0}.html'.format(mangaSeries)) 
+  
+  chapterList = manga.chapter_set.order_by('sort_number')[:]
+  prevId = 0
+  nextId = 0
+  chapLen = len(chapterList)
+  for i in range(0, chapLen):
+    if chapterList[i]==chapter:
+      if(i!=chapLen-1):
+        nextId = chapterList[i+1].id
+      if(i!=0):
+        prevId = chapterList[i-1].id
+      break
+  
+  pageList = chapter.page_set.order_by('number')[:]
+  pageUrls = []
+  for page in pageList:
+    strurl = str(page.image)
+    pageUrls.append(strurl)
+  
+  context = {
+    'manga': manga,
+    'chapter': chapter,
+    'prev_id': prevId,
+    'next_id': nextId,
+    'page_list': pageUrls,
+  }
+  return render(request, 'reader/stripReader.html', context)
+  
 
 def upload(request, chapterUploaded=""): 
   mangaList = Manga.objects.order_by('title')[:]
@@ -34,16 +85,20 @@ def submitChapter(request):
     mangaList = Manga.objects.order_by('title')[:]    
     return render(request, 'reader/upload.html', {
       'manga_list': mangaList,
-      'error_message':"You didn't select a choice.",
+      'error_message':"You didn't select a manga choice.",
     })    
   chapNumber = request.POST['chap_number'].strip()
   volNumber = request.POST['vol_number'].strip()
-  print(chapNumber)
-  print(volNumber)
+  if(volNumber==""):
+    volNumber = 0    
+  if(chapNumber==""):
+    return render(request, 'reader/upload.html', {
+      'manga_list': mangaList,
+      'error_message':"Please enter a chapter number!",
+    })    
   sortNumber = int((float(volNumber)*1000000)+(float(chapNumber)*100))
   title = request.POST['title']
   upload_date = timezone.now()
-  print(str(sortNumber))
   static = "reader\\static\\"
   path = "reader\\mangas\\"+manga.storage_name
   try:

@@ -3,9 +3,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>QWERTY Scans | Projects</title>
+    <title>QWERTY Scans | Reader</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{% static 'reader/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'reader/reader.css' %}" />
+    <script src="{% static 'reader/blazy.js' %}"></script>
+    <script>
+      ;(function() {
+        // Initialize
+        var bLazy = new Blazy();
+      })();
+    </script>
   </head>
   <body>
     <div class="header">
@@ -30,23 +37,25 @@
 
     <div class="main">
       <div class="container">
-        <h2>Projects</h2>
-        {% if manga_list %}
-          <ul>
-          {% for manga in manga_list %}
-            <li><a href="{% url 'reader:mangaDetail' manga.storage_name %}">{{ manga.title }}</a></li>
-          {% endfor %}
-          </ul>
-        {% else %}
-          <p>No projects are available.</p>
-        {% endif %}
+        <h2>{{ manga.title }}</h2>
+        <h3>{{ chapter }}</h3>
       </div>
+    </div>
+
+    <div class="reader">
+      {% if page_list %}
+        {% for page in page_list %}
+          <img class="b-lazy"
+          src="{% static 'reader/images/kitty.gif' %}"
+          data-src="{% static page %}"
+          alt="alt-text"/>
+        {% endfor %}
+      {% endif %}
     </div>
 
     <div class="footer">
       <div class="container">
         <p>Disclaimer: ...I'll get to it at some point.</p>
-        <a href="{% url 'reader:upload' %}">Upload</a>
       </div>
     </div>
   </body>

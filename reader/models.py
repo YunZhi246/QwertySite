@@ -11,11 +11,11 @@ class Manga(models.Model):
   description = models.CharField(max_length=1000, blank=False)
   language = models.CharField(max_length=100, blank=True)
   genres = models.CharField(max_length=100, blank=True)
-  COMPLETED = 0
-  CURRENT = 1
-  HIATUS = 2
-  DROPPED = 3
-  FUTURE = 4
+  COMPLETED = 'Completed'
+  CURRENT = 'Current'
+  HIATUS = 'Hiatus'
+  DROPPED = 'Dropped'
+  FUTURE = 'Future'
   status_choices = (
     (COMPLETED, 'Completed'),
     (CURRENT, 'Current'),
@@ -41,11 +41,11 @@ class Chapter(models.Model):
   upload_date = models.DateTimeField('date uploaded', editable=False)
   storage_name = models.CharField(max_length=100, blank=False)
   def __str__(self):
-    displayName = " Chapter ".join(chap_number)
-    if vol_number != 0:
-      displayName = "Volume ".join(vol_number).join(displayName)
-    if title != "":
-      displayName = displayName.join(": ").join(title)
+    displayName = "Chapter {0}".format(str(round(self.chap_number, 1) if self.chap_number % 1 else int(self.chap_number)))
+    if self.vol_number != 0:
+      displayName = "Volume {0} {1}".format(str(round(self.vol_number, 1) if self.vol_number % 1 else int(self.vol_number)), displayName)
+    if self.title != "":
+      displayName = displayName+": "+self.title
     return displayName
   
 class Page(models.Model):

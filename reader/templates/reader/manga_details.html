@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>QWERTY Scans | Projects</title>
+    <title>QWERTY Scans | {{ manga.title }}</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'reader/style.css' %}" />
   </head>
@@ -30,15 +30,24 @@
 
     <div class="main">
       <div class="container">
-        <h2>Projects</h2>
-        {% if manga_list %}
+        <h2>{{ manga.title }}</h2>
+          <img src="{% static manga.pic_location %}">
+          <p><strong>Author: </strong>{{ manga.author }}   <strong>Artist: </strong>{{ manga.artist }}</p>
+          <p><strong>Language: </strong>{{ manga.language }}</p>
+          <p><strong>Genres: </strong>{{ manga.genres }}</p>
+          <p><strong>Status: </strong>{{ manga.get_status_display }}</p>
+          <p>{{ manga.description }}</p>
+          <br/><b/>
+
+
+        {% if chapter_list %}
           <ul>
-          {% for manga in manga_list %}
-            <li><a href="{% url 'reader:mangaDetail' manga.storage_name %}">{{ manga.title }}</a></li>
+          {% for chapter in chapter_list %}
+            <li><a href="{% url 'reader:stripReader' manga.storage_name chapter.id %}">{{ chapter }}</a></li>
           {% endfor %}
           </ul>
         {% else %}
-          <p>No projects are available.</p>
+          <p>No chapters are available.</p>
         {% endif %}
       </div>
     </div>
