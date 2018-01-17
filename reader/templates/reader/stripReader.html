@@ -43,6 +43,14 @@
     </div>
 
     <div class="reader">
+      <div class="buttonPanel">
+        {% if prev_id %}
+          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name prev_id %}">Previous</a>
+        {% endif %}
+        {% if next_id %}
+          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name next_id %}">Next</a>
+        {% endif %}
+      </div>
       {% if page_list %}
         {% for page in page_list %}
           <img class="b-lazy"
@@ -51,6 +59,14 @@
           alt="kitty.gif"/>
         {% endfor %}
       {% endif %}
+      <div class="buttonPanel">
+        {% if prev_id %}
+          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name prev_id %}">Previous</a>
+        {% endif %}
+        {% if next_id %}
+          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name next_id %}">Next</a>
+        {% endif %}
+      </div>
     </div>
 
     <div class="footer">

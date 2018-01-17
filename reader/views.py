@@ -68,6 +68,21 @@ def stripReader(request, mangaSeries, chapterId):
     'next_id': nextId,
     'page_list': pageUrls,
   }
+  if prevId==0:
+    context = {
+      'manga': manga,
+      'chapter': chapter,
+      'next_id': nextId,
+      'page_list': pageUrls,
+    }    
+  if nextId==0:
+    context = {
+      'manga': manga,
+      'chapter': chapter,
+      'prev_id': prevId,
+      'page_list': pageUrls,
+    }
+    
   return render(request, 'reader/stripReader.html', context)
   
 @permission_required('add_chapter', login_url='accounts:login')

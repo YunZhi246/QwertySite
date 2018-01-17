@@ -94,13 +94,9 @@ body {
 }
 
 .btn:hover {
-  background: #117bff;
+  background: #49C3B2;
   cursor: pointer; 
   transition: background .5s;  
-}
-
-.nav .btn:hover {
-  background: #49C3B2;
 }
 
 .main {
@@ -151,6 +147,10 @@ body {
   margin: 10px 0 0;
   float: right; 
   font-weight: 500;
+}
+
+.jumbotron .btn:hover {
+  background: #117bff;
 }
 
 .footer { 

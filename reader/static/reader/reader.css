@@ -91,17 +91,16 @@ body {
 }
 
 .btn:hover {
-  background: #117bff;
+  background: #49C3B2;
   cursor: pointer; 
   transition: background .5s;  
 }
 
-.nav .btn:hover {
-  background: #49C3B2;
-}
-
 .main .container {
-  margin: 80px auto;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0 90px;
 }
 
@@ -112,6 +111,20 @@ body {
 
 .main h2, h3{
   text-align: center;
+}
+
+.reader .buttonPanel{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.reader .btn{
+  font-weight: 500;
+  width: 70px;
+  text-align: center;
+  padding: 10px 40px;
 }
 
 .reader img {
