@@ -30,20 +30,22 @@
 
     <div class="main">
       <div class="container">
-        <h2>{{ manga.title }}</h2>
           <img src="{% static manga.pic_location %}">
-          <p><strong>Author: </strong>{{ manga.author }}   <strong>Artist: </strong>{{ manga.artist }}</p>
+        <h2>{{ manga.title }}</h2>
+          <p><strong>Author: </strong>{{ manga.author }}&nbsp;&nbsp;&nbsp;&nbsp;<strong>Artist: </strong>{{ manga.artist }}</p>
           <p><strong>Language: </strong>{{ manga.language }}</p>
           <p><strong>Genres: </strong>{{ manga.genres }}</p>
           <p><strong>Status: </strong>{{ manga.get_status_display }}</p>
+          <br/>
           <p>{{ manga.description }}</p>
-          <br/><b/>
-
-
+          <br/>
+      </div>
+      <div class="container">
         {% if chapter_list %}
           <ul>
           {% for chapter in chapter_list %}
             <li><a href="{% url 'reader:stripReader' manga.storage_name chapter.id %}">{{ chapter }}</a></li>
+            <li><a href="{% url 'reader:pageReader' manga.storage_name chapter.id 1 %}">{{ chapter }} Pages</a></li>
           {% endfor %}
           </ul>
         {% else %}

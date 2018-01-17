@@ -38,53 +38,63 @@
     <div class="main">
       <div class="container">
         <a href="{% url 'reader:mangaDetail' manga.storage_name %}"><h2>{{ manga.title }}</h2></a>
-        <h3>{{ chapter }}</h3>
+        <h3>{{ chapter }} - Page {{ page_num }}/{{ chapter.num_pages }}</h3>
       </div>
     </div>
 
     <div class="reader">
       <div class="buttonPanel">
-        {% if prev_id %}
-          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name prev_id %}">Previous</a>
+        {% if prev_chap %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name prev_chap prev_chap_pages %}">&lt;&lt;</a>
         {% endif %}
-        {% if next_id %}
-          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name next_id %}">Next</a>
+        {% if prev_page %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name chapter.id prev_page %}">&lt;</a>
+        {% endif %}
+        {% if next_page %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name chapter.id next_page %}">&gt;</a>
+        {% endif %}
+        {% if next_chap %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name next_chap 1 %}">&gt;&gt;</a>
         {% endif %}
       </div>
       <div class="buttonPanel">
-        <form action="{% url 'reader:pageReader' manga.storage_name chapter.id 1 %}">
+        <form action="{% url 'reader:stripReader' manga.storage_name chapter.id %}">
           <input type="submit" value="View" />
         </form>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <form action="{% url 'reader:jumpChapter' manga.storage_name %}" method="post">
+        <form action="{% url 'reader:jumpPage' manga.storage_name chapter.id %}" method="post">
           {% csrf_token %}
-          <select name="chapter" required="required">
+          <!--select name="chapter" required="required">
             {% for chap in chapter_list %}
               <option value="{{ chap.id }}">{{ chap }}</option>
             {% endfor %}
-          </select>
-          <!--select name="page" required="required">
+          </select-->
+          <select name="page" required="required">
             {% for page in page_list %}
               <option value="{{ page }}">{{ page }}</option>
             {% endfor %}
-          </select-->
+          </select>
           <input type="submit" value="Go" />
         </form>
       </div>
-      {% if page_list %}
-        {% for page in page_list %}
-          <img class="b-lazy"
-          src="{% static 'reader/images/kitty.gif' %}"
-          data-src="{% static page %}"
-          alt="kitty.gif"/>
-        {% endfor %}
+      {% if page_url %}
+        <img class="b-lazy"
+        src="{% static 'reader/images/kitty.gif' %}"
+        data-src="{% static page_url %}"
+        alt="kitty.gif"/>
       {% endif %}
       <div class="buttonPanel">
-        {% if prev_id %}
-          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name prev_id %}">Previous</a>
+        {% if prev_chap %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name prev_chap prev_chap_pages %}">&lt;&lt;</a>
         {% endif %}
-        {% if next_id %}
-          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name next_id %}">Next</a>
+        {% if prev_page %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name chapter.id prev_page %}">&lt;</a>
+        {% endif %}
+        {% if next_page %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name chapter.id next_page %}">&gt;</a>
+        {% endif %}
+        {% if next_chap %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name next_chap 1 %}">&gt;&gt;</a>
         {% endif %}
       </div>
     </div>

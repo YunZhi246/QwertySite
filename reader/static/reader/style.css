@@ -118,8 +118,9 @@ body {
 }
 
 .main img {
-  float: left;
-  margin: 50px 80px 50px 0;
+  float: right;
+  margin-left: 30px;
+  height: 300px
 }
 
 .jumbotron {
