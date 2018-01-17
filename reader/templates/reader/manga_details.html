@@ -6,6 +6,7 @@
     <title>QWERTY Scans | {{ manga.title }}</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'reader/style.css' %}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'reader/images/favicon.ico' %}" />
   </head>
   <body>
     <div class="header">
@@ -44,8 +45,12 @@
         {% if chapter_list %}
           <ul>
           {% for chapter in chapter_list %}
-            <li><a href="{% url 'reader:stripReader' manga.storage_name chapter.id %}">{{ chapter }}</a></li>
-            <li><a href="{% url 'reader:pageReader' manga.storage_name chapter.id 1 %}">{{ chapter }} Pages</a></li>
+            {% if webtoon %}
+              <li><a href="{% url 'reader:stripReader' manga.storage_name chapter.id %}">{{ chapter }}</a></li>
+            {% endif %}
+            {% if traditional %}
+              <li><a href="{% url 'reader:pageReader' manga.storage_name chapter.id 1 %}">{{ chapter }}</a></li>
+            {% endif %}
           {% endfor %}
           </ul>
         {% else %}

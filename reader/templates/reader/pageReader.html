@@ -6,6 +6,7 @@
     <title>QWERTY Scans | Reader</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'reader/reader.css' %}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'reader/images/favicon.ico' %}" />
     <script src="{% static 'reader/blazy.js' %}"></script>
     <script>
       ;(function() {
@@ -58,17 +59,22 @@
         {% endif %}
       </div>
       <div class="buttonPanel">
+        <form action="{% url 'reader:jumpChapter' manga.storage_name 'pages' %}" method="post">
+          {% csrf_token %}
+          <select name="chapter" required="required">
+            {% for chap in chapter_list %}
+              <option value="{{ chap.id }}">{{ chap }}</option>
+            {% endfor %}
+          </select>
+          <input type="submit" value="Go" />
+        </form>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <form action="{% url 'reader:stripReader' manga.storage_name chapter.id %}">
           <input type="submit" value="View" />
         </form>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <form action="{% url 'reader:jumpPage' manga.storage_name chapter.id %}" method="post">
           {% csrf_token %}
-          <!--select name="chapter" required="required">
-            {% for chap in chapter_list %}
-              <option value="{{ chap.id }}">{{ chap }}</option>
-            {% endfor %}
-          </select-->
           <select name="page" required="required">
             {% for page in page_list %}
               <option value="{{ page }}">{{ page }}</option>

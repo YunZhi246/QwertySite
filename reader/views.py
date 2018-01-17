@@ -27,10 +27,18 @@ def mangaDetail(request, mangaSeries):
   except(KeyError, Manga.DoesNotExist):
     render(request, 'reader/index.html')
   chapterList = manga.chapter_set.order_by('-sort_number')[:]
-  context = {
-    'manga': manga,
-    'chapter_list': chapterList,
-  }
+  if manga.display_method == 0:
+    context = {
+      'manga': manga,
+      'chapter_list': chapterList,
+      'traditional': 1,
+    }
+  elif manga.display_method == 1:
+    context = {
+      'manga': manga,
+      'chapter_list': chapterList,
+      'webtoon': 1,
+    }
   return render(request, 'reader/manga_details.html', context)  
 
 def stripReader(request, mangaSeries, chapterId):
@@ -255,9 +263,15 @@ def jumpPage(request, mangaSeries, chapterId):
   pageNum = request.POST['page']
   return HttpResponseRedirect(reverse('reader:pageReader', args=(mangaSeries, chapterId, pageNum,)))
 
-def jumpChapter(request, mangaSeries):
+def jumpChapter(request, mangaSeries, display):
   chapterId = request.POST['chapter']
-  return HttpResponseRedirect(reverse('reader:stripReader', args=(mangaSeries, chapterId,)))
+  if display=='webtoon':
+    return HttpResponseRedirect(reverse('reader:stripReader', args=(mangaSeries, chapterId,)))
+  elif display=='pages':
+    return HttpResponseRedirect(reverse('reader:pageReader', args=(mangaSeries, chapterId, 1)))
+  else:
+    raise Http404("URL does not exist")    
+    
 
 @permission_required('add_chapter', login_url='accounts:login')
 def upload(request, chapterUploaded=""): 
@@ -347,5 +361,6 @@ def submitChapter(request):
     page.save()
     
   os.remove(uploaded_file_url)
-  return HttpResponseRedirect(reverse('reader:upload', args=(manga.title,)))
+  returnString = "{0} - {1}".format(manga.title, chapter)
+  return HttpResponseRedirect(reverse('reader:upload', args=(returnString,)))
   

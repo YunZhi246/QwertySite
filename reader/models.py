@@ -7,7 +7,7 @@ class Manga(models.Model):
   title = models.CharField(max_length=200, blank=False, unique=True)
   alternative_titles = models.CharField(max_length=200, blank=True)
   author = models.CharField(max_length=50, blank=False)
-  artist = models.CharField(max_length=50, blank=True)
+  artist = models.CharField(max_length=50, blank=False)
   description = models.CharField(max_length=1000, blank=False)
   language = models.CharField(max_length=100, blank=True)
   genres = models.CharField(max_length=100, blank=True)
@@ -48,9 +48,9 @@ class Chapter(models.Model):
   upload_date = models.DateTimeField('date uploaded', editable=False)
   storage_name = models.CharField(max_length=100, blank=False)
   def __str__(self):
-    displayName = "Chapter {0}".format(str(round(self.chap_number, 1) if self.chap_number % 1 else int(self.chap_number)))
+    displayName = "Chapter {0}".format(str(round(float(self.chap_number), 1) if float(self.chap_number) % 1 else int(self.chap_number)))
     if self.vol_number != 0:
-      displayName = "Volume {0} {1}".format(str(round(self.vol_number, 1) if self.vol_number % 1 else int(self.vol_number)), displayName)
+      displayName = "Volume {0} {1}".format(str(round(float(self.vol_number), 1) if float(self.vol_number) % 1 else int(self.vol_number)), displayName)
     if self.title != "":
       displayName = displayName+": "+self.title
     return displayName
