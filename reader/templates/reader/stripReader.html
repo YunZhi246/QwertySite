@@ -37,7 +37,7 @@
 
     <div class="main">
       <div class="container">
-        <h2>{{ manga.title }}</h2>
+        <a href="{% url 'reader:mangaDetail' manga.storage_name %}"><h2>{{ manga.title }}</h2></a>
         <h3>{{ chapter }}</h3>
       </div>
     </div>
@@ -48,7 +48,7 @@
           <img class="b-lazy"
           src="{% static 'reader/images/kitty.gif' %}"
           data-src="{% static page %}"
-          alt="alt-text"/>
+          alt="kitty.gif"/>
         {% endfor %}
       {% endif %}
     </div>

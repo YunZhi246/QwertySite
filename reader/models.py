@@ -25,6 +25,13 @@ class Manga(models.Model):
   )
   status = models.CharField(max_length=10, choices=status_choices, default=CURRENT)
   joints = models.CharField(max_length=200, blank=True)
+  TRADITIONAL = 0
+  WEBTOON = 1
+  display_choices = (
+    (TRADITIONAL, 'Traditional (pages)'),
+    (WEBTOON, 'Webtoon (strip view)'),
+  )  
+  display_method = models.PositiveSmallIntegerField(choices=display_choices, default=WEBTOON)
   pic_location = models.CharField(max_length=200, blank=False)
   storage_name = models.CharField(max_length=100, blank=False, unique=True)
   def __str__(self):
@@ -37,7 +44,7 @@ class Chapter(models.Model):
   sort_number = models.PositiveIntegerField()
   title = models.CharField(max_length=200, blank=True)
   num_pages = models.PositiveSmallIntegerField()
-  user = models.ForeignKey(auth.models.User, on_delete=models.SET_NULL, null=True)
+  owner = models.ForeignKey(auth.models.User, on_delete=models.SET_NULL, null=True)
   upload_date = models.DateTimeField('date uploaded', editable=False)
   storage_name = models.CharField(max_length=100, blank=False)
   def __str__(self):

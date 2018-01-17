@@ -5,6 +5,7 @@ from django.views import generic
 from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
 from django.db import models
+from django.contrib.auth.decorators import permission_required
 
 from .models import Manga, Chapter, Page
 
@@ -69,7 +70,7 @@ def stripReader(request, mangaSeries, chapterId):
   }
   return render(request, 'reader/stripReader.html', context)
   
-
+@permission_required('add_chapter', login_url='accounts:login')
 def upload(request, chapterUploaded=""): 
   mangaList = Manga.objects.order_by('title')[:]
   context = {
@@ -77,6 +78,7 @@ def upload(request, chapterUploaded=""):
     'chapter_uploaded': chapterUploaded,
   }
   return render(request, 'reader/upload.html', context)
+
 
 def submitChapter(request):
   try:
@@ -98,6 +100,7 @@ def submitChapter(request):
     })    
   sortNumber = int((float(volNumber)*1000000)+(float(chapNumber)*100))
   title = request.POST['title']
+  owner = request.user
   upload_date = timezone.now()
   static = "reader\\static\\"
   path = "reader\\mangas\\"+manga.storage_name
@@ -145,6 +148,7 @@ def submitChapter(request):
                     sort_number=sortNumber, 
                     title=title,
                     num_pages=len(sortedList),
+                    owner=owner,
                     upload_date=upload_date,
                     storage_name=chapterStorageName,)
   chapter.save()

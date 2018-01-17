@@ -155,6 +155,7 @@ body {
 
 .footer { 
   background: #000;
+  background-size: cover;
   height: 100px; 
   padding-bottom: 30px;
 }
