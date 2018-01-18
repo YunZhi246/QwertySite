@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>QWERTY Scans | {{ manga.title }}</title>
+    <title>QWERTY Scans</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}" />
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/images/favicon.ico' %}" />
@@ -20,7 +20,7 @@
     <div class="nav">
       <div class="container">
         <ul>
-          <a class="btn" href="{% url 'pages:home' %}">Home</a>
+          <a class="btn selected" href="{% url 'pages:home' %}">Home</a>
           <a class="btn" href="{% url 'pages:aboutUs' %}">About</a>
           <a class="btn" href="{% url 'reader:index' %}">Projects</a>
           <a class="btn" href="{% url 'pages:recruit' %}">Recruitment</a>
@@ -31,31 +31,28 @@
 
     <div class="main">
       <div class="container">
-          <img src="{% static manga.pic_location %}">
-        <h2>{{ manga.title }}</h2>
-          <p><strong>Author: </strong>{{ manga.author }}&nbsp;&nbsp;&nbsp;&nbsp;<strong>Artist: </strong>{{ manga.artist }}</p>
-          <p><strong>Language: </strong>{{ manga.language }}</p>
-          <p><strong>Genres: </strong>{{ manga.genres }}</p>
-          <p><strong>Status: </strong>{{ manga.get_status_display }}</p>
-          <br/>
-          <p>{{ manga.description }}</p>
-          <br/>
+        <h2>Home</h2>
+        <p>This is still a work in progress, please bare with me as changes are going to be constantly implemented.</p>
+        <br/><br/>
+        <h3>To do list:</h3>
+        <ul>
+          <li>latest releases on home page</li>
+          <li>change projects index to images</li>
+          <li>code the forms</li>
+          <li>reader - left right key functionality</li>
+          <li>announcements on homepage</li>
+          <li>collage of projects for the jumbotron</li>
+          <li>disqus????</li>
+          <li>sort projects index by status???</li>
+        </ul>
       </div>
+    </div>
+
+    <div class="jumbotron">
       <div class="container">
-        {% if chapter_list %}
-          <ul>
-          {% for chapter in chapter_list %}
-            {% if webtoon %}
-              <li><a href="{% url 'reader:stripReader' manga.storage_name chapter.id %}">{{ chapter }}</a></li>
-            {% endif %}
-            {% if traditional %}
-              <li><a href="{% url 'reader:pageReader' manga.storage_name chapter.id 1 %}">{{ chapter }}</a></li>
-            {% endif %}
-          {% endfor %}
-          </ul>
-        {% else %}
-          <p>No chapters are available.</p>
-        {% endif %}
+        <h2>Join Qwerty</h2>
+        <p>Help us get releases out faster.</p>
+        <a class="btn" href="{% url 'pages:recruit' %}">Recruitment</a>
       </div>
     </div>
 

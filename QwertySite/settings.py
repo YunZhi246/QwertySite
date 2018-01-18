@@ -40,6 +40,7 @@ INSTALLED_APPS = [
   
     'reader.apps.ReaderConfig',
     'accounts.apps.AccountsConfig',
+    'pages.apps.PagesConfig',
 ]
 
 MIDDLEWARE = [

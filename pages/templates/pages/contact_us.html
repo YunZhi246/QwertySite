@@ -1,9 +1,8 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html>
   <head>
-    <title>QWERTY Scans | Projects</title>
+    <title>QWERTY Scans | Contact Us</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}" />
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/images/favicon.ico' %}" />
@@ -22,32 +21,26 @@
         <ul>
           <a class="btn" href="{% url 'pages:home' %}">Home</a>
           <a class="btn" href="{% url 'pages:aboutUs' %}">About</a>
-          <a class="btn selected" href="{% url 'reader:index' %}">Projects</a>
+          <a class="btn" href="{% url 'reader:index' %}">Projects</a>
           <a class="btn" href="{% url 'pages:recruit' %}">Recruitment</a>
-          <a class="btn" href="{% url 'pages:contactUs' %}">Contact Us</a>
+          <a class="btn selected" href="{% url 'pages:contactUs' %}">Contact Us</a>
         </ul>
       </div>
     </div>
 
     <div class="main">
       <div class="container">
-        <h2>Projects</h2>
-        {% if manga_list %}
-          <ul>
-          {% for manga in manga_list %}
-            <li><a href="{% url 'reader:mangaDetail' manga.storage_name %}">{{ manga.title }}</a></li>
-          {% endfor %}
-          </ul>
-        {% else %}
-          <p>No projects are available.</p>
-        {% endif %}
+        <h2>Contact Us</h2>
+        <p>Oops this hasn't been implemented yet...</p>
+        <br/>
+        <p>Please visit us at <a href="https://www.facebook.com/QwertyScans/" target="_blank">Facebook</a>, <a href="https://discordapp.com/invite/wjjav8k" target="_blank">Discord</a> and/or our <a href="https://qwertyscanlation.wordpress.com/contact/" target="_blank">old site</a>!</p>
+        <br/><br/><br/><br/><br/><br/><br/>
       </div>
     </div>
 
     <div class="footer">
       <div class="container">
         <p>Disclaimer: ...I'll get to it at some point.</p>
-        <a href="{% url 'reader:upload' %}">Upload</a>
       </div>
     </div>
   </body>

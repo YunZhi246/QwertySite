@@ -6,7 +6,7 @@
     <title>QWERTY Scans | Reader</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'reader/reader.css' %}" />
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'reader/images/favicon.ico' %}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/images/favicon.ico' %}" />
     <script src="{% static 'reader/blazy.js' %}"></script>
     <script>
       ;(function() {
@@ -18,7 +18,7 @@
   <body>
     <div class="header">
       <div class="container">
-        <a href="home.html">
+        <a href="{% url 'pages:home' %}">
           <h1>QWERTY Scans</h1>
         </a>
       </div>
@@ -27,11 +27,11 @@
     <div class="nav">
       <div class="container">
         <ul>
-          <a class="btn" href="home.html">Home</a>
-          <a class="btn" href="about_us.html#">About</a>
-          <a class="btn selected" href="{% url 'reader:index' %}">Projects</a>
-          <a class="btn" href="recruitment.html">Recruitment</a>
-          <a class="btn" href="contact_us.html">Contact Us</a>
+          <a class="btn" href="{% url 'pages:home' %}">Home</a>
+          <a class="btn" href="{% url 'pages:aboutUs' %}">About</a>
+          <a class="btn" href="{% url 'reader:index' %}">Projects</a>
+          <a class="btn" href="{% url 'pages:recruit' %}">Recruitment</a>
+          <a class="btn" href="{% url 'pages:contactUs' %}">Contact Us</a>
         </ul>
       </div>
     </div>
