@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from reader.models import Chapter
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
@@ -30,16 +30,17 @@ def contactUs(request, msg=False):
 def contactForm(request):
   emailContent = 'Name: \n' + request.POST['name'] + '\n\nEmail: \n' + request.POST['email']
   emailContent = emailContent + '\n\nComment: \n' + request.POST['comment']
+  htmlContent = '<b>Name:</b> ' + request.POST['name'] + '<br/><br/><b>Email:</b> ' + request.POST['email']
+  htmlContent = htmlContent + '<br/><br/><b>Comment:</b> ' + request.POST['comment']  
   subject = 'New Comment from ' +  request.POST['name']
-  result = send_mail(
+  replyToEmail = request.POST['email']
+  email = EmailMultiAlternatives(
              subject,
              emailContent,
              'from@example.com',
-             ['j.lcrystal1234@yahoo.ca'],
-             fail_silently=False,
+             ['to@example.com'],
+             reply_to=[replyToEmail],
            )  
-  if result == 1:
-    result = "sent"
-  else:
-    result = ""
-  return HttpResponseRedirect(reverse('pages:contactUs', args=(result, )))
+  email.attach_alternative(htmlContent, "text/html")
+  email.send(fail_silently=False)
+  return HttpResponseRedirect(reverse('pages:contactUs', args=("sent", )))

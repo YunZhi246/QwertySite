@@ -126,7 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+# Use this for testing
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '.' # change this to a proper location
 
