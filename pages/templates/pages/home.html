@@ -6,6 +6,8 @@
     <title>QWERTY Scans</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/float.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/jumbotron.css' %}" />
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/images/favicon.ico' %}" />
   </head>
   <body>
@@ -31,21 +33,34 @@
 
     <div class="main">
       <div class="container">
-        <h2>Home</h2>
-        <p>This is still a work in progress, please bare with me as changes are going to be constantly implemented.</p>
-        <br/><br/>
-        <h3>To do list:</h3>
-        <ul>
-          <li>latest releases on home page</li>
-          <li>change projects index to images</li>
-          <li>code the forms</li>
-          <li>reader - left right key functionality</li>
-          <li>announcements on homepage</li>
-          <li>collage of projects for the jumbotron</li>
-          <li>disqus????</li>
-          <li>sort projects index by status???</li>
-        </ul>
+        <div class="floatMain">
+          <h2>Home</h2>
+          <p>This is still a work in progress, please bare with me as changes are going to be constantly implemented.</p>
+          <br/><br/>
+          <h3>To do list:</h3>
+          <ul>
+            <li>code the forms</li>
+            <li>reader - left right key functionality</li>
+            <li>announcements on homepage</li>
+            <li>collage of projects for the jumbotron</li>
+            <li>disqus????</li>
+            <li>sort projects index by status???</li>
+          </ul>
+        </div>
+        <div class="floatSide">
+          <h3>Latest Updates</h3>
+          {% if chapter_list %}
+            {% for chapter in chapter_list %}
+              <a href="{% url 'reader:mangaDetail' chapter.manga.storage_name %}">{{ chapter.manga.title }} {{ chapter }}</a>
+              <br/>
+            {% endfor %}
+          {% endif %}
+        </div>
       </div>
+    </div>
+
+    <div class="updates">
+      
     </div>
 
     <div class="jumbotron">

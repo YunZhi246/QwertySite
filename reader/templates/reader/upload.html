@@ -5,8 +5,7 @@
   <head>
     <title>QWERTY Scans | Upload</title>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/images/favicon.ico' %}" />
-    <!--link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{% static 'reader/style.css' %}" /-->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/images/favicon.ico' %}" />
   </head>
   <body>
     <a href="{% url 'pages:home' %}">
@@ -18,19 +17,22 @@
 
     <form action="{% url 'reader:submitChapter' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      <select name="manga">
+      <select name="manga" required>
         {% for manga in manga_list %}
           <option value="{{ manga.id }}">{{ manga.title }}</option>
         {% endfor %}
       </select>
-      <br/>
-      <p>Volume Number: </p><input type="number" name="vol_number" min="0">
-      <br/>
-      <p>Chapter Number: </p><input type="number" name="chap_number" min="0">
-      <br/>
-      <p>Title: </p><input type="text" name="title">
       <br/><br/>
-      <input type="file" name="chapter_file">
+      <label for="vol_number">Volume Number:</label>
+      <input type="number" name="vol_number" id="vol_number" min="0">
+      <br/><br/>
+      <label for="chap_number">Chapter Number:</label>
+      <input type="number" name="chap_number" id="chap_number" min="0" required>
+      <br/><br/>
+      <label for="title">Title:</label>
+      <input type="text" name="title" id="title">
+      <br/><br/>
+      <input type="file" name="chapter_file" required>
       <br/><br/><br/>
       <input type="submit" value="Upload" />
     </form>

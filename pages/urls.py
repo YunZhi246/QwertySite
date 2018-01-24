@@ -12,4 +12,6 @@ urlpatterns = [
   path('about-us/', views.aboutUs, name='aboutUs'),
   path('recruitment/', views.recruit, name='recruit'),
   path('contact-us/', views.contactUs, name='contactUs'),
+  path('contact-us/<msg>/', views.contactUs, name='contactUs'),
+  path('contact-form/', views.contactForm, name='contactForm'),
 ]

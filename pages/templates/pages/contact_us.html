@@ -5,6 +5,7 @@
     <title>QWERTY Scans | Contact Us</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/forms.css' %}" />
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/images/favicon.ico' %}" />
   </head>
   <body>
@@ -31,10 +32,29 @@
     <div class="main">
       <div class="container">
         <h2>Contact Us</h2>
-        <p>Oops this hasn't been implemented yet...</p>
+        <p>Contact us here with any questions, comments, or suggestions.</p>
+        <p>You can also visit us at <a href="https://www.facebook.com/QwertyScans/" target="_blank">Facebook</a> and/or <a href="https://discordapp.com/invite/wjjav8k" target="_blank">Discord</a>!</p>
         <br/>
-        <p>Please visit us at <a href="https://www.facebook.com/QwertyScans/" target="_blank">Facebook</a>, <a href="https://discordapp.com/invite/wjjav8k" target="_blank">Discord</a> and/or our <a href="https://qwertyscanlation.wordpress.com/contact/" target="_blank">old site</a>!</p>
-        <br/><br/><br/><br/><br/><br/><br/>
+
+        <div class="form">
+          {% if msg %}
+            <p style="color: blue;">{{ msg }}</p>
+            <br/>
+          {% endif %}
+          <form action="{% url 'pages:contactForm' %}" method="post">
+            {% csrf_token %}
+            <label for="name">Name </label><label style="color: red;">*</label><br/>
+            <input type="text" id="name" name="name" required>
+            <br/>
+            <label for="email">Email </label><label style="color: red;">*</label><br/>
+            <input type="text" id="email" name="email" required>
+            <br/>
+            <label for="comment">Comment </label><label style="color: red;">*</label><br/>
+            <textarea id="comment" name="comment" style="height:200px" required></textarea>
+            <br/>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
       </div>
     </div>
 

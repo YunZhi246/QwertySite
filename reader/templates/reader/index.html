@@ -6,6 +6,7 @@
     <title>QWERTY Scans | Projects</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'reader/gallery.css' %}" />
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/images/favicon.ico' %}" />
   </head>
   <body>
@@ -33,11 +34,18 @@
       <div class="container">
         <h2>Projects</h2>
         {% if manga_list %}
-          <ul>
-          {% for manga in manga_list %}
-            <li><a href="{% url 'reader:mangaDetail' manga.storage_name %}">{{ manga.title }}</a></li>
-          {% endfor %}
-          </ul>
+          <div class="gallery">
+            {% for manga in manga_list %}
+              <a href="{% url 'reader:mangaDetail' manga.storage_name %}">
+                <div class="picFrame">
+                  <img src="{% static manga.pic_location %}" class="image">
+                  <div class="overlay">
+                    <div class="text">{{ manga.title }}</div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
         {% else %}
           <p>No projects are available.</p>
         {% endif %}

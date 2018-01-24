@@ -124,38 +124,6 @@ body {
   height: 300px
 }
 
-.jumbotron {
-  background-color: #49C3B2;
-  background-size: cover;
-  height: 300px; 
-}
-
-.jumbotron .container {
-  position: relative;
-  top: 90px;
-}
-
-.jumbotron h2 {
-  color: #fff;
-  text-align: right; 
-}
-
-.jumbotron p {
-  color: #fff; 
-  text-align: right; 
-  font-weight: 400;
-}
-
-.jumbotron .btn {
-  margin: 10px 0 0;
-  float: right; 
-  font-weight: 500;
-}
-
-.jumbotron .btn:hover {
-  background: #117bff;
-}
-
 .footer { 
   background: #000;
   background-size: cover;
@@ -182,7 +150,7 @@ body {
     line-height: 64px;
   }
 
-  .main, .jumbotron {
+  .main {
     padding: 0 30px;
   }
 
