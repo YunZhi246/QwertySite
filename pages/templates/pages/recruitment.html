@@ -6,6 +6,7 @@
     <title>QWERTY Scans | Recruitment</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/forms.css' %}" />
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/images/favicon.ico' %}" />
   </head>
   <body>
@@ -32,10 +33,81 @@
     <div class="main">
       <div class="container">
         <h2>Recruitment</h2>
-        <p>Oops this hasn't been implemented yet...</p>
+        <h3>Thank you for thinking about joining QWERTY Scans!</h3>
+        <p>To apply, you will need to fill out the form below and submit it to us. We will then take a look and contact you about the position you’re interested in.</p>
+        <p>*** This is <strong>volunteer</strong> only, our staff gets no monetary compensation whatsoever.</p>
+        <h3>Positions</h3>
+        <p><strong>Assistant</strong><br>Helps pull raws from sources and assists other people when needed. Mostly there for moral support.</p>
+        <p><strong>Translator</strong><br>Must be proficient in both the language being translated from and English. Responsible for translating the original script into English while keeping the script as close as possible to the original meaning.</p>
+        <del><p><strong>Proofreader</strong><br>Responsible for correcting any grammar mistakes and improving overall flow of the script while maintaining the original meaning of the translation. Meant for Grammar Nazis.</p></del>
+        <p><strong>Cleaner</strong><br>Takes out all text in bubbles and outside the bubbles, such as sfx or any dialogue outside the bubbles. Will need to be able to redraw any parts taken out. Perfect for artists or aspiring artists.</p>
+        <p><strong>Redrawer</strong><br>Redraws any part of the page that has been erased or taken out due to cleaning. This position is meant for artists who think they are good at drawing.</p>
+        <p><strong>Typesetter</strong><br>Replaces the old script with the newly translated English script by copying and pasting text into the correct bubbles and panels. Must be very skilled with copy and paste, ideal for font fanatics.</p>
+        <p><strong>Editor</strong><br>Someone who can both typeset and clean. A multi-talented person.</p>
         <br/>
-        <p>Please visit our <a href="https://qwertyscanlation.wordpress.com/recruit/" target="_blank">old site</a> for the recruitment form.</p>
-        <br/><br/><br/><br/><br/><br/><br/>
+
+        <div class="form">
+          <h3>Please fill out the following:</h3>
+          {% if msg %}
+            <p style="color: blue;">{{ msg }}</p>
+            <br/>
+          {% endif %}
+          <form action="{% url 'pages:recruitForm' %}" method="post">
+            {% csrf_token %}
+            <div class="formLabel"><label for="name">Name </label><label style="color: red;">*</label></div>
+            <input type="text" id="name" name="name" required>
+            <br/><br/>
+
+            <div class="formLabel"><label for="email">Email </label><label style="color: red;">*</label></div>
+            <input type="text" id="email" name="email" required>
+            <br/><br/>
+
+            <div class="formLabel"><label for="position">Desired Position </label><label style="color: red;">*</label></div>
+              <input type="radio" id="assistant" name="position" value="Assistant" required><label for="assistant">&nbsp;&nbsp;Assistant</label><br/>
+              <input type="radio" id="ktl" name="position" value="Korean Translator"><label for="ktl">&nbsp;&nbsp;Korean Translator</label><br/>
+              <input type="radio" id="jtl" name="position" value="Japanese Translator"><label for="jtl">&nbsp;&nbsp;Japanese Translator</label><br/>
+              <input type="radio" id="ctl" name="position" value="Chinese Translator"><label for="ctl">&nbsp;&nbsp;Chinese Translator</label><br/>
+              <!--input type="radio" id="proofreader" name="position" value="Proofreader"><label for="proofreader">Proofreader</label><br/-->
+              <input type="radio" id="cleaner" name="position" value="Cleaner"><label for="cleaner">&nbsp;&nbsp;Cleaner</label><br/>
+              <input type="radio" id="redrawer" name="position" value="Redrawer"><label for="redrawer">&nbsp;&nbsp;Redrawer</label><br/>
+              <input type="radio" id="typesetter" name="position" value="Typesetter"><label for="typesetter">&nbsp;&nbsp;Typesetter</label><br/>
+              <input type="radio" id="editor" name="position" value="Editor"><label for="editor">&nbsp;&nbsp;Editor</label><br/>
+            <br/><br/>
+
+            <div class="formLabel"><label for="experience">Do you have experience with the position you selected? </label><label style="color: red;">*</label></div>
+              <input type="radio" id="yes" name="experience" value="Yes" required><label for="yes">&nbsp;&nbsp;Yes</label><br/>
+              <input type="radio" id="no" name="experience" value="No"><label for="no">&nbsp;&nbsp;No</label><br/>
+            <br/><br/>
+
+            <div class="formLabel"><label for="groups">Are you in any other groups? If yes, please list them below. If no, skip this question. </label></div>
+            <textarea id="groups" name="groups" style="height:200px"></textarea>
+            <br/><br/>
+
+            <div class="formLabel"><label for="projects">What project are you interested in working on? </label><label style="color: red;">*</label></div>
+            <textarea id="projects" name="projects" style="height:200px" required></textarea>
+            <br/><br/>
+
+            <div class="formLabel"><label for="selfintro">Tell us a bit about yourself. </label><label style="color: red;">*</label></div>
+            <textarea id="selfintro" name="selfintro" style="height:200px" required></textarea>
+            <br/><br/>
+
+            <div class="formLabel"><label for="discovery">How did you discover us? </label><label style="color: red;">*</label></div>
+            <textarea id="discovery" name="discovery" style="height:200px" required></textarea>
+            <br/><br/>
+
+            <div class="formLabel"><label for="reason">Why do you want to join our team? </label><label style="color: red;">*</label></div>
+            <textarea id="reason" name="reason" style="height:200px" required></textarea>
+            <br/><br/>
+
+            <div class="formLabel"><label for="comment">Is there anything else you want to tell us? Questions, comments, past experience, whether or not you are applying for another position. </label></div>
+            <textarea id="comment" name="comment" style="height:200px"></textarea>
+            <br/><br/>
+
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+
       </div>
     </div>
 

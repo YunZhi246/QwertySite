@@ -1,3 +1,16 @@
+.main h3{
+  margin-top: 40px;
+}
+
+.main{
+  max-width: 1000px
+}
+
+.form .formLabel {
+  max-width: 600px;
+  width: auto;
+}
+
 .form label {
   font-weight: 400;
 }
