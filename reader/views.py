@@ -15,10 +15,22 @@ import re
 # Create your views here.
 
 def index(request):
-  mangaList = Manga.objects.order_by('title')[:]
-  context = {
-    'manga_list': mangaList,
-  }
+  currentList = Manga.objects.all().filter(status=Manga.CURRENT).order_by('title')[:]
+  completedList = Manga.objects.all().filter(status=Manga.COMPLETED).order_by('title')[:]
+  hiatusList = Manga.objects.all().filter(status=Manga.HIATUS).order_by('title')[:]
+  droppedList = Manga.objects.all().filter(status=Manga.DROPPED).order_by('title')[:]
+  futureList = Manga.objects.all().filter(status=Manga.FUTURE).order_by('title')[:]
+  context = {}
+  if len(currentList)!=0:
+    context['current_list'] = currentList
+  if len(completedList)!=0:
+    context['completed_list'] = completedList
+  if len(hiatusList)!=0:
+    context['hiatus_list'] = hiatusList
+  if len(droppedList)!=0:
+    context['dropped_list'] = droppedList
+  if len(futureList)!=0:
+    context['future_list'] = futureList
   return render(request, 'reader/index.html', context)
 
 def mangaDetail(request, mangaSeries):
@@ -27,19 +39,25 @@ def mangaDetail(request, mangaSeries):
   except(KeyError, Manga.DoesNotExist):
     render(request, 'reader/index.html')
   chapterList = manga.chapter_set.order_by('-sort_number')[:]
-  if manga.display_method == 0:
-    context = {
-      'manga': manga,
-      'chapter_list': chapterList,
-      'traditional': 1,
-    }
-  elif manga.display_method == 1:
-    context = {
-      'manga': manga,
-      'chapter_list': chapterList,
-      'webtoon': 1,
-    }
+  context = {
+    'manga': manga,
+    'chapter_list': chapterList,
+  }
   return render(request, 'reader/manga_details.html', context)  
+
+def readChapter(request, mangaSeries, chapterId):
+  try:
+    manga = Manga.objects.get(storage_name=mangaSeries)
+  except(KeyError, Manga.DoesNotExist):
+    render(request, 'reader/index.html')
+  try:
+    chapter = Chapter.objects.get(pk=chapterId)
+  except(KeyError, Chapter.DoesNotExist):
+    raise Http404("Chapter does not exist")
+  if manga.display_method==Manga.TRADITIONAL:
+    return HttpResponseRedirect(reverse('reader:pageReader', args=(mangaSeries, chapterId, 1,)))
+  elif manga.display_method==Manga.WEBTOON:
+    return HttpResponseRedirect(reverse('reader:stripReader', args=(mangaSeries, chapterId,)))
 
 def stripReader(request, mangaSeries, chapterId):
   try:

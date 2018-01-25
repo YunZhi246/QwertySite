@@ -45,14 +45,6 @@
 
     <div class="reader">
       <div class="buttonPanel">
-        {% if prev_id %}
-          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name prev_id %}">Previous</a>
-        {% endif %}
-        {% if next_id %}
-          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name next_id %}">Next</a>
-        {% endif %}
-      </div>
-      <div class="buttonPanel">
         <form action="{% url 'reader:jumpChapter' manga.storage_name 'webtoon' %}" method="post">
           {% csrf_token %}
           <select name="chapter" required="required">
@@ -66,6 +58,14 @@
         <form action="{% url 'reader:pageReader' manga.storage_name chapter.id 1 %}">
           <input type="submit" value="View" />
         </form>
+      </div>
+      <div class="buttonPanel">
+        {% if prev_id %}
+          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name prev_id %}">Previous</a>
+        {% endif %}
+        {% if next_id %}
+          <a class="btn" href="{% url 'reader:stripReader' manga.storage_name next_id %}">Next</a>
+        {% endif %}
       </div>
       {% if page_list %}
         {% for page in page_list %}

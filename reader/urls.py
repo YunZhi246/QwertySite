@@ -9,6 +9,7 @@ app_name = 'reader'
 urlpatterns = [
   path('', views.index, name='index'),
   path('<mangaSeries>', views.mangaDetail, name='mangaDetail'),
+  path('<mangaSeries>/<int:chapterId>/readChapter/', views.readChapter, name='readChapter'),
   path('<mangaSeries>/<int:chapterId>', views.stripReader, name='stripReader'),  
   path('<mangaSeries>/<int:chapterId>/<int:pageNum>', views.pageReader, name='pageReader'),
   path('<mangaSeries>/jump/<display>', views.jumpChapter, name='jumpChapter'),  

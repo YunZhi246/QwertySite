@@ -109,15 +109,21 @@ body {
   text-decoration: none;
 }
 
-.main h2, h3{
+.main h2{
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.main h3{
+  margin-top: 5px;
   text-align: center;
 }
 
 .reader .buttonPanel{
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .reader .btn{
@@ -127,14 +133,21 @@ body {
   padding: 10px 40px;
 }
 
+.reader .picFrame{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
 .reader img {
   pointer-events: none;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 .footer { 
+  margin-top: 30px;
   background: #000;
   height: 100px; 
   padding-bottom: 30px;

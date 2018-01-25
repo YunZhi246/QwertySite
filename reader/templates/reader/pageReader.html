@@ -45,20 +45,6 @@
 
     <div class="reader">
       <div class="buttonPanel">
-        {% if prev_chap %}
-          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name prev_chap prev_chap_pages %}">&lt;&lt;</a>
-        {% endif %}
-        {% if prev_page %}
-          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name chapter.id prev_page %}">&lt;</a>
-        {% endif %}
-        {% if next_page %}
-          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name chapter.id next_page %}">&gt;</a>
-        {% endif %}
-        {% if next_chap %}
-          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name next_chap 1 %}">&gt;&gt;</a>
-        {% endif %}
-      </div>
-      <div class="buttonPanel">
         <form action="{% url 'reader:jumpChapter' manga.storage_name 'pages' %}" method="post">
           {% csrf_token %}
           <select name="chapter" required="required">
@@ -83,12 +69,32 @@
           <input type="submit" value="Go" />
         </form>
       </div>
+      <div class="buttonPanel">
+        {% if prev_chap %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name prev_chap prev_chap_pages %}">&lt;&lt;</a>
+        {% endif %}
+        {% if prev_page %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name chapter.id prev_page %}">&lt;</a>
+        {% endif %}
+        {% if next_page %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name chapter.id next_page %}">&gt;</a>
+        {% endif %}
+        {% if next_chap %}
+          <a class="btn" href="{% url 'reader:pageReader' manga.storage_name next_chap 1 %}">&gt;&gt;</a>
+        {% endif %}
+      </div>
+      <div class="picFrame">
       {% if page_url %}
-        <img class="b-lazy"
-        src="{% static 'reader/images/kitty.gif' %}"
-        data-src="{% static page_url %}"
-        alt="kitty.gif"/>
+        {% if next_page %}
+          <a href="{% url 'reader:pageReader' manga.storage_name chapter.id next_page %}"><img class="b-lazy" src="{% static 'reader/images/kitty.gif' %}" data-src="{% static page_url %}" alt="kitty.gif"/></a>
+        {% else %}
+          <img class="b-lazy"
+          src="{% static 'reader/images/kitty.gif' %}"
+          data-src="{% static page_url %}"
+          alt="kitty.gif"/>
+        {% endif %}
       {% endif %}
+      </div>
       <div class="buttonPanel">
         {% if prev_chap %}
           <a class="btn" href="{% url 'reader:pageReader' manga.storage_name prev_chap prev_chap_pages %}">&lt;&lt;</a>

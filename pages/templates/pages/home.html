@@ -39,18 +39,15 @@
           <br/><br/>
           <h3>To do list:</h3>
           <ul>
-            <li>reader - left right key functionality</li>
-            <li>announcements on homepage</li>
             <li>collage of projects for the jumbotron</li>
-            <li>disqus????</li>
-            <li>sort projects index by status???</li>
+            <li>add blog post like for announcements</li>
           </ul>
         </div>
         <div class="floatSide">
           <h3>Latest Updates</h3>
           {% if chapter_list %}
             {% for chapter in chapter_list %}
-              <a href="{% url 'reader:mangaDetail' chapter.manga.storage_name %}">{{ chapter.manga.title }} {{ chapter }}</a>
+              <a href="{% url 'reader:readChapter' chapter.manga.storage_name chapter.id %}">{{ chapter.manga.title }} {{ chapter }}</a>
               <br/>
             {% endfor %}
           {% endif %}

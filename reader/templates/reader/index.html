@@ -32,10 +32,10 @@
 
     <div class="main">
       <div class="container">
-        <h2>Projects</h2>
-        {% if manga_list %}
+        {% if current_list %}
+          <h2>Current Projects</h2>
           <div class="gallery">
-            {% for manga in manga_list %}
+            {% for manga in current_list %}
               <a href="{% url 'reader:mangaDetail' manga.storage_name %}">
                 <div class="picFrame">
                   <img src="{% static manga.pic_location %}" class="image">
@@ -46,8 +46,66 @@
               </a>
             {% endfor %}
           </div>
-        {% else %}
-          <p>No projects are available.</p>
+        {% endif %}
+        {% if completed_list %}
+          <h2>Completed Projects</h2>
+          <div class="gallery">
+            {% for manga in completed_list %}
+              <a href="{% url 'reader:mangaDetail' manga.storage_name %}">
+                <div class="picFrame">
+                  <img src="{% static manga.pic_location %}" class="image">
+                  <div class="overlay">
+                    <div class="text">{{ manga.title }}</div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if hiatus_list %}
+          <h2>Hiatus Projects</h2>
+          <div class="gallery">
+            {% for manga in hiatus_list %}
+              <a href="{% url 'reader:mangaDetail' manga.storage_name %}">
+                <div class="picFrame">
+                  <img src="{% static manga.pic_location %}" class="image">
+                  <div class="overlay">
+                    <div class="text">{{ manga.title }}</div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if dropped_list %}
+          <h2>Dropped Projects</h2>
+          <div class="gallery">
+            {% for manga in dropped_list %}
+              <a href="{% url 'reader:mangaDetail' manga.storage_name %}">
+                <div class="picFrame">
+                  <img src="{% static manga.pic_location %}" class="image">
+                  <div class="overlay">
+                    <div class="text">{{ manga.title }}</div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if future_list %}
+          <h2>Future Projects</h2>
+          <div class="gallery">
+            {% for manga in future_list %}
+              <a href="{% url 'reader:mangaDetail' manga.storage_name %}">
+                <div class="picFrame">
+                  <img src="{% static manga.pic_location %}" class="image">
+                  <div class="overlay">
+                    <div class="text">{{ manga.title }}</div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
         {% endif %}
       </div>
     </div>
