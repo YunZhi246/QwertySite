@@ -3,14 +3,21 @@ from reader.models import Chapter
 from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from .models import BlogPost
 
 # Create your views here.
 
 def home(request):
-  chapterList = Chapter.objects.order_by('-upload_date')[:6]
+  chapterList = Chapter.objects.filter(visible=True).order_by('-upload_date')[:6]
+  pinnedPost = BlogPost.objects.filter(pinned = True).order_by('-created_date')[:]
+  blogPost = BlogPost.objects.filter(pinned = False).order_by('-created_date')[:]
   context = {
     'chapter_list': chapterList,
   }
+  if len(pinnedPost)!=0:
+    context['pinned_list'] = pinnedPost
+  if len(blogPost)!=0:
+    context['blog_list'] = blogPost
   return render(request, 'pages/home.html', context)
 
 def aboutUs(request):

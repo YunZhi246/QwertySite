@@ -24,6 +24,7 @@ class Manga(models.Model):
     (FUTURE, 'Future'),
   )
   status = models.CharField(max_length=10, choices=status_choices, default=CURRENT)
+  is_joint = models.BooleanField(default=False)
   joints = models.CharField(max_length=200, blank=True)
   TRADITIONAL = 0
   WEBTOON = 1
@@ -46,6 +47,7 @@ class Chapter(models.Model):
   num_pages = models.PositiveSmallIntegerField()
   owner = models.ForeignKey(auth.models.User, on_delete=models.SET_NULL, null=True)
   upload_date = models.DateTimeField('date uploaded', editable=False)
+  visible = models.BooleanField(default=True)
   storage_name = models.CharField(max_length=100, blank=False)
   def __str__(self):
     displayName = "Chapter {0}".format(str(round(float(self.chap_number), 1) if float(self.chap_number) % 1 else int(self.chap_number)))
@@ -54,6 +56,14 @@ class Chapter(models.Model):
     if self.title != "":
       displayName = displayName+": "+self.title
     return displayName
+  def getDisplay(self):
+    displayName = "Chapter {0}".format(str(round(float(self.chap_number), 1) if float(self.chap_number) % 1 else int(self.chap_number)))
+    if self.vol_number != 0:
+      displayName = "Volume {0} {1}".format(str(round(float(self.vol_number), 1) if float(self.vol_number) % 1 else int(self.vol_number)), displayName)
+    if self.title != "":
+      displayName = displayName+": "+self.title
+    displayName = self.manga.title + " " + displayName
+    return displayName    
   
 class Page(models.Model):
   chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)  

@@ -1,6 +1,7 @@
 .floatMain {
   width: 70%;
   display: inline-block;
+  margin-right: 10px;
 }
 
 .floatSide {
@@ -10,9 +11,11 @@
   padding-right: 20px;
   padding-bottom: 20px;
   margin-top: 30px;
+  margin-left: 10px;
   float: right;
   border-style: solid;
   border-color: black;
+  border-radius: 0.8em;
   display: inline-block;
   vertical-align: top;
 }
@@ -22,12 +25,15 @@
   line-height: 30px; 
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .floatMain {
     width: 100%;
   }
   .floatSide {
     max-width: 100%;
+    width: 95%;
+    margin-right: 0;
+    margin-left: 0;
     float: none;
   }
 }

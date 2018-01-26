@@ -38,7 +38,7 @@ def mangaDetail(request, mangaSeries):
     manga = Manga.objects.get(storage_name=mangaSeries)
   except(KeyError, Manga.DoesNotExist):
     render(request, 'reader/index.html')
-  chapterList = manga.chapter_set.order_by('-sort_number')[:]
+  chapterList = manga.chapter_set.filter(visible=True).order_by('-sort_number')[:]
   context = {
     'manga': manga,
     'chapter_list': chapterList,
@@ -69,7 +69,7 @@ def stripReader(request, mangaSeries, chapterId):
   except(KeyError, Chapter.DoesNotExist):
     raise Http404("Chapter does not exist")
   
-  chapterList = manga.chapter_set.order_by('sort_number')[:]
+  chapterList = manga.chapter_set.filter(visible=True).order_by('sort_number')[:]
   hasPrev = False
   hasNext = False
   prevId = 0
@@ -152,7 +152,7 @@ def pageReader(request, mangaSeries, chapterId, pageNum):
   nextChapId = 0
   prevChapNum = 0
   
-  chapterList = manga.chapter_set.order_by('sort_number')[:]
+  chapterList = manga.chapter_set.filter(visible=True).order_by('sort_number')[:]
   hasPrev = False
   hasNext = False
   chapLen = len(chapterList)
@@ -176,105 +176,24 @@ def pageReader(request, mangaSeries, chapterId, pageNum):
       hasPrevPage = False
       if hasPrev:
         hasPrevChap = True
-        
-  if hasNextPage and hasPrevPage:
-    context = {
+  
+  context = {
     'manga': manga,
     'chapter': chapter,
     'chapter_list': chapterList,
-    'page_list': pageList,
+    'page_list': pageList,  
     'page_num': pageNum,
     'page_url': pageUrl,
-    'prev_page': prevPage,
-    'next_page': nextPage,
-    }
-  elif hasPrevPage and hasNextChap:
-    context = {
-    'manga': manga,
-    'chapter': chapter,
-    'chapter_list': chapterList,
-    'page_list': pageList,
-    'page_num': pageNum,
-    'page_url': pageUrl,
-    'prev_page': prevPage,
-    'next_chap': nextChapId,
-    }
-  elif hasPrevChap and hasNextPage:
-    print("HELLLLLLLO"+str(hasPrevChap))    
-    context = {
-      'manga': manga,
-      'chapter': chapter,
-      'chapter_list': chapterList,
-      'page_list': pageList,
-      'page_num': pageNum,
-      'page_url': pageUrl,
-      'prev_chap': prevChapId,
-      'prev_chap_pages': prevChapNum,
-      'next_page': nextPage,
-    }
-  elif hasPrevChap and hasNextChap:
-    context = {
-      'manga': manga,
-      'chapter': chapter,
-      'chapter_list': chapterList,
-      'page_list': pageList,
-      'page_num': pageNum,
-      'page_url': pageUrl,
-      'prev_chap': prevChapId,
-      'prev_chap_pages': prevChapNum,
-      'next_chap': nextChapId,
-    }    
-  elif hasPrevPage and ((not hasNextPage) and (not hasNextChap)):
-    context = {
-      'manga': manga,
-      'chapter': chapter,
-      'chapter_list': chapterList,
-      'page_list': pageList,
-      'page_num': pageNum,
-      'page_url': pageUrl,
-      'prev_page': prevPage,
-    }
-  elif hasPrevChap and ((not hasNextPage) and (not hasNextChap)):
-    context = {
-      'manga': manga,
-      'chapter': chapter,
-      'chapter_list': chapterList,
-      'page_list': pageList,
-      'page_num': pageNum,
-      'page_url': pageUrl,
-      'prev_chap': prevChapId,
-      'prev_chap_pages': prevChapNum,
-    }
-  elif hasNextPage and ((not hasPrevPage) and (not hasPrevChap)):
-    context = {
-      'manga': manga,
-      'chapter': chapter,
-      'chapter_list': chapterList,
-      'page_list': pageList,
-      'page_num': pageNum,
-      'page_url': pageUrl,
-      'next_page': nextPage,
-    }
-  elif hasNextChap and ((not hasPrevPage) and (not hasPrevChap)):
-    context = {
-      'manga': manga,
-      'chapter': chapter,
-      'chapter_list': chapterList,
-      'page_list': pageList,
-      'page_num': pageNum,
-      'page_url': pageUrl,
-      'next_chap': nextChapId,
-    }
-  elif (((not hasPrevPage) and (not hasPrevChap)) and ((not hasNextPage) and (not hasNextChap))):
-    context = {
-      'manga': manga,
-      'chapter': chapter,
-      'chapter_list': chapterList,
-      'page_list': pageList,
-      'page_num': pageNum,
-      'page_url': pageUrl,
-    }    
-  print(str(context))
+  }
+  if hasNextPage:
+    context['next_page'] = nextPage
+  if hasPrevPage:
+    context['prev_page'] = prev_page  
+  if hasNextChap:
+    context['next_chap'] = nextChapId    
+  if hasPrevChap:
+    context['prev_chap'] = prevChapId 
+    context['prev_chap_pages'] = prevChapNum 
   return render(request, 'reader/pageReader.html', context)  
   
 def jumpPage(request, mangaSeries, chapterId):
