@@ -20,6 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+#with open('etc/secret_key.txt') as f:
+#  SECRET_KEY = f.read().strip()
 SECRET_KEY = 'lo%s1q&il2*r!cs_yu7+#3^^hftmc&p0%nh5#(1ck6m7jji3&6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -55,27 +57,48 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'QwertySite.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [os.path.join(BASE_DIR, 'templates')],
+    'APP_DIRS': True,
+    'OPTIONS': {
+       'context_processors': [
+       'django.template.context_processors.debug',
+       'django.template.context_processors.request',
+       'django.contrib.auth.context_processors.auth',
+       'django.contrib.messages.context_processors.messages',
+        ],
     },
-]
+}]
 
 WSGI_APPLICATION = 'QwertySite.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+#dbEngine = ""
+#dbName = ""
+#dbUser = ""
+#dbPassword = ""
+#dbHost = ""
+#dbPort = ""
+#with open('etc/db.txt') as f:
+  #dbEngine = f.readline().strip()
+  #dbName = f.readline().strip()
+  #dbUser = f.readline().strip()
+  #dbPassword = f.readline().strip()
+  #dbHost = f.readline().strip()
+  #dbPort = f.readline().strip()
+#DATABASES = {
+  #'default': {
+      #'ENGINE': dbEngine,
+        #'NAME': dbName,
+        #'USER': dbUser,
+        #'PASSWORD': dbPassword,
+        #'HOST': dbHost,
+        #'PORT': dbPort,
+    #}
+#}
 
 DATABASES = {
     'default': {
@@ -107,6 +130,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#CSRF_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -130,10 +155,17 @@ STATIC_URL = '/static/'
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '.' # change this to a proper location
 
-'''
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_SSL = True
-#'''
+#emHost = ""
+#emPort = ""
+#emHostUser  = ""
+#emHostPw = ""
+#with open('etc/email.txt') as f:
+  #emHost = f.readline().strip()
+  #emPort = f.readline().strip()
+  #emHostUser = f.readline().strip()
+  #emHostPw = f.readline().strip()
+#EMAIL_HOST = emHost
+#EMAIL_PORT = emPort
+#EMAIL_HOST_USER = emHostUser
+#EMAIL_HOST_PASSWORD = emHostPw
+#EMAIL_USE_SSL = True

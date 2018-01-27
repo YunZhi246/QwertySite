@@ -11,11 +11,11 @@ class Manga(models.Model):
   description = models.CharField(max_length=1000, blank=False)
   language = models.CharField(max_length=100, blank=True)
   genres = models.CharField(max_length=100, blank=True)
-  COMPLETED = 'Completed'
-  CURRENT = 'Current'
-  HIATUS = 'Hiatus'
-  DROPPED = 'Dropped'
-  FUTURE = 'Future'
+  COMPLETED = 'CP'
+  CURRENT = 'CU'
+  HIATUS = 'HT'
+  DROPPED = 'DP'
+  FUTURE = 'FT'
   status_choices = (
     (COMPLETED, 'Completed'),
     (CURRENT, 'Current'),
@@ -23,7 +23,7 @@ class Manga(models.Model):
     (DROPPED, 'Dropped'),
     (FUTURE, 'Future'),
   )
-  status = models.CharField(max_length=10, choices=status_choices, default=CURRENT)
+  status = models.CharField(max_length=2, choices=status_choices, default=CURRENT)
   is_joint = models.BooleanField(default=False)
   joints = models.CharField(max_length=200, blank=True)
   TRADITIONAL = 0
@@ -60,8 +60,6 @@ class Chapter(models.Model):
     displayName = "Chapter {0}".format(str(round(float(self.chap_number), 1) if float(self.chap_number) % 1 else int(self.chap_number)))
     if self.vol_number != 0:
       displayName = "Volume {0} {1}".format(str(round(float(self.vol_number), 1) if float(self.vol_number) % 1 else int(self.vol_number)), displayName)
-    if self.title != "":
-      displayName = displayName+": "+self.title
     displayName = self.manga.title + " " + displayName
     return displayName    
   

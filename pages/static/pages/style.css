@@ -127,8 +127,16 @@ body {
 .footer { 
   background: #000;
   background-size: cover;
-  height: 100px; 
+  height: auto;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer .container {
   padding-bottom: 30px;
+  padding-top: 30px;
+  text-align: center;
 }
 
 .footer a{
@@ -138,8 +146,7 @@ body {
 .footer p { 
   color: #fff;
   font-size: 14px;  
-  height: 80px; 
-  line-height: 80px;
+  line-height: 18px;
   margin: 0;  
   font-weight: 300;
 }
