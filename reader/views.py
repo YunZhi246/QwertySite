@@ -210,7 +210,7 @@ def jumpChapter(request, mangaSeries, display):
     raise Http404("URL does not exist")    
     
 
-@permission_required('add_chapter', login_url='accounts:login')
+@permission_required('reader.add_chapter', login_url='accounts:login')
 def upload(request, chapterUploaded=""): 
   mangaList = Manga.objects.order_by('title')[:]
   context = {
