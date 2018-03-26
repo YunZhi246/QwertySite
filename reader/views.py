@@ -210,7 +210,7 @@ def jumpChapter(request, mangaSeries, display):
     raise Http404("URL does not exist")    
     
 
-@permission_required('add_chapter', login_url='accounts:login')
+@permission_required('reader.add_chapter', login_url='accounts:login')
 def upload(request, chapterUploaded=""): 
   mangaList = Manga.objects.order_by('title')[:]
   context = {
@@ -242,8 +242,8 @@ def submitChapter(request):
   title = request.POST['title']
   owner = request.user
   upload_date = timezone.now()
-  static = "reader\\static\\"
-  path = "reader\\mangas\\"+manga.storage_name
+  static = "static/"
+  path = "reader/mangas/"+manga.storage_name
   try:
     os.makedirs(static+path)
   except OSError as e:
@@ -254,7 +254,7 @@ def submitChapter(request):
         'error_message':"Oops something went wrong, please try again.",
       })    
   chapterStorageName = str(sortNumber) + upload_date.strftime("%Y-%m-%d_%H-%M-%S_%f")
-  path = path + "\\" + chapterStorageName
+  path = path + "/" + chapterStorageName
   try:
     os.makedirs(static+path)
   except OSError as e:

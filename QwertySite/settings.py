@@ -26,7 +26,7 @@ with open('etc/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.qwertyscans.com','qwertyscans.com','18.218.111.245']
 
 
 # Application definition
@@ -75,27 +75,21 @@ WSGI_APPLICATION = 'QwertySite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-dbEngine = ""
 dbName = ""
 dbUser = ""
 dbPassword = ""
-dbHost = ""
-dbPort = ""
 with open('etc/db.txt') as f:
-  dbEngine = f.readline().strip()
   dbName = f.readline().strip()
   dbUser = f.readline().strip()
   dbPassword = f.readline().strip()
-  dbHost = f.readline().strip()
-  dbPort = f.readline().strip()
 DATABASES = {
   'default': {
-      'ENGINE': dbEngine,
+      'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': dbName,
         'USER': dbUser,
         'PASSWORD': dbPassword,
-        'HOST': dbHost,
-        'PORT': dbPort,
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -143,6 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 emHost = ""
 emPort = ""
@@ -157,4 +152,8 @@ EMAIL_HOST = emHost
 EMAIL_PORT = emPort
 EMAIL_HOST_USER = emHostUser
 EMAIL_HOST_PASSWORD = emHostPw
-EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+DEFAULT_FROM_EMAIL = "noreply.qwertyscans@gmail.com"
+SERVER_EMAIL = "noreply.qwertyscans@gmail.com"

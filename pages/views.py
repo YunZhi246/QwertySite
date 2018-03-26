@@ -49,8 +49,8 @@ def contactForm(request):
   email = EmailMultiAlternatives(
              subject,
              emailContent,
-             'from@example.com',
-             ['to@example.com'],
+             'noreply.qwertyscans@gmail.com',
+             ['scansqwerty@gmail.com'],
              reply_to=[replyToEmail],
            )  
   email.attach_alternative(htmlContent, "text/html")
@@ -65,7 +65,7 @@ def recruitForm(request):
   selfIntro = '\n\nTell us a bit about yourself. \n' + request.POST['selfintro']
   discov = '\n\nHow did you discover us? \n' + request.POST['discovery']
   reason = '\n\nWhy do you want to join our team? \n'  + request.POST['reason']
-  comment = '\n\nIs there anything else you want to tell us? Questons, comments, past experience, whether or not you are applying for another position.\n' + request.POST['comment']
+  comment = '\n\nIs there anything else you want to tell us? Questions, comments, past experience, whether or not you are applying for another position.\n' + request.POST['comment']
   emailContent = nameEmail + posiExper + proj + selfIntro + discov + reason + comment 
   
   hnameEmail = '<b>Name:</b> ' + request.POST['name'] + '<br/><br/><b>Email:</b> ' + request.POST['email']
@@ -75,15 +75,15 @@ def recruitForm(request):
   hselfIntro = '<br/><br/><b>Tell us a bit about yourself. </b>' + request.POST['selfintro']
   hdiscov = '<br/><br/><b>How did you discover us? </b>' + request.POST['discovery']
   hreason = '<br/><br/><b>Why do you want to join our team? </b>'  + request.POST['reason']
-  hcomment = '<br/><br/><b>Is there anything else you want to tell us? Questons, comments, past experience, whether or not you are applying for another position.</b>' + request.POST['comment']  
+  hcomment = '<br/><br/><b>Is there anything else you want to tell us? Questions, comments, past experience, whether or not you are applying for another position.</b>' + request.POST['comment']  
   htmlContent = hnameEmail + hposiExper + hproj + hselfIntro + hdiscov + hreason + hcomment 
   subject = 'New Application from ' +  request.POST['name']
   replyToEmail = request.POST['email']
   email = EmailMultiAlternatives(
              subject,
              emailContent,
-             'from@example.com',
-             ['to@example.com'],
+             'noreply.qwertyscans@gmail.com',
+             ['scansqwerty@gmail.com'],
              reply_to=[replyToEmail],
            )  
   email.attach_alternative(htmlContent, "text/html")
