@@ -1,6 +1,6 @@
 *.pyc
 .*swp
-static
-etc
-pages/migrations
-reader/$MYVIMRC
+./static
+./etc
+./pages/migrations
+./reader/$MYVIMRC
