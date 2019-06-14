@@ -19,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 with open('etc/secret_key.txt') as f:
  SECRET_KEY = f.read().strip()
 
+
 # TESTING
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -108,6 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # PRODUCTION
 # CSRF_COOKIE_SECURE = True
 # SESSION_COOKIE_SECURE = True
@@ -115,6 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # SECURE_BROWSER_XSS_FILTER = True
 # SECURE_SSL_REDIRECT = True
 # X_FRAME_OPTIONS = 'DENY'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

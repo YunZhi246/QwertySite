@@ -20,6 +20,8 @@ def index(request):
   hiatusList = Manga.objects.all().filter(status=Manga.HIATUS).order_by('title')[:]
   droppedList = Manga.objects.all().filter(status=Manga.DROPPED).order_by('title')[:]
   futureList = Manga.objects.all().filter(status=Manga.FUTURE).order_by('title')[:]
+  litcList = Manga.objects.all().filter(status=Manga.LITC).order_by('title')[:]
+  
   context = {}
   if len(currentList)!=0:
     context['current_list'] = currentList
@@ -31,6 +33,9 @@ def index(request):
     context['dropped_list'] = droppedList
   if len(futureList)!=0:
     context['future_list'] = futureList
+  if len(litcList)!=0:
+    context['litc_list'] = litcList
+
   return render(request, 'reader/index.html', context)
 
 def mangaDetail(request, mangaSeries):

@@ -16,12 +16,14 @@ class Manga(models.Model):
   HIATUS = 'HT'
   DROPPED = 'DP'
   FUTURE = 'FT'
+  LITC = 'LC'
   status_choices = (
     (COMPLETED, 'Completed'),
     (CURRENT, 'Current'),
     (HIATUS, 'Hiatus'),
     (DROPPED, 'Dropped'),
     (FUTURE, 'Future'),
+    (LITC, "Lost in the Clouds"),
   )
   status = models.CharField(max_length=2, choices=status_choices, default=CURRENT)
   is_joint = models.BooleanField(default=False)
