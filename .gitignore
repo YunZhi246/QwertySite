@@ -1,2 +1,7 @@
 *.pyc
 .*swp
+static/**
+etc/**
+pages/migrations/**
+reader/$MYVIMRC
+.idea/*
