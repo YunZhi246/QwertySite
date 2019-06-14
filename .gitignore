@@ -4,4 +4,6 @@ static/**
 etc/**
 pages/migrations/**
 reader/$MYVIMRC
+reader/static/reader/mangas/*
 .idea/*
+*.un~

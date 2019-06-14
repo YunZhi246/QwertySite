@@ -64,10 +64,10 @@
           {% endif %}
         </div>
       </div>
-    </div>
 
-    <div class="updates">
-      
+      <div class="container">
+        <div id="disqus_thread"></div>
+      </div>
     </div>
 
     <!--div class="jumbotron">
@@ -77,11 +77,32 @@
         <a class="btn" href="{% url 'pages:recruit' %}">Recruitment</a>
       </div>
     </div-->
+   
+    <script>
+ 
+    /** 
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    
+    var disqus_config = function () {
+      this.page.url = 'https://qwertyscans.com';  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = 'homePage'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://qwerty-scans.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>    
 
     <div class="footer">
       <div class="container">
         <p>Disclaimer: The all the series worked on here is the property of the original author/artist. <br> QWERTY Scans is not an official distributor. If you like the series, please consider supporting the author by visiting the official site.</p>
       </div>
     </div>
+  <script id="dsq-count-scr" src="//qwerty-scans.disqus.com/count.js" async></script>
   </body>
 </html>

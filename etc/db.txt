@@ -1,6 +1,0 @@
-django.db.backends.postgresql
-qwerty-testing
-testing_all
-password
-127.0.0.1
-5432

@@ -117,6 +117,13 @@ body {
   font-weight: 300;
 }
 
+.main a{
+  text-decoration: none;
+  font-weight: 500;
+  color: #008080;
+  line-height: 30px;
+}
+
 .main img {
   float: right;
   margin-left: 30px;
