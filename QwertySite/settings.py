@@ -16,19 +16,15 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 with open('etc/secret_key.txt') as f:
  SECRET_KEY = f.read().strip()
 
 # TESTING
-DEBUG = True
-ALLOWED_HOSTS = []
+# DEBUG = True
+# ALLOWED_HOSTS = []
 # PRODUCTION
-#DEBUG = False
-#ALLOWED_HOSTS = ['www.qwertyscans.com','qwertyscans.com','18.218.111.245']
+DEBUG = False
+ALLOWED_HOSTS = ['www.qwertyscans.com','qwertyscans.com','18.218.111.245']
 
 
 # Application definition
@@ -113,12 +109,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # PRODUCTION
-# CSRF_COOKIE_SECURE = True
-# SESSION_COOKIE_SECURE = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_SSL_REDIRECT = True
-# X_FRAME_OPTIONS = 'DENY'
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_SSL_REDIRECT = True
+X_FRAME_OPTIONS = 'DENY'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -139,31 +135,31 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # TESTING
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = '.'
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = '.'
 
 # PRODUCTION
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-#
-# emHost = ""
-# emPort = ""
-# emHostUser  = ""
-# emHostPw = ""
-# fromEmail = ""
-# toEmail = ""
-# with open('etc/email.txt') as f:
-#   fromEmail = f.readline().strip()
-#   toEmail = f.readline().strip()
-#   emHost = f.readline().strip()
-#   emPort = f.readline().strip()
-#   emHostUser = f.readline().strip()
-#   emHostPw = f.readline().strip()
-# EMAIL_HOST = emHost
-# EMAIL_PORT = emPort
-# EMAIL_HOST_USER = emHostUser
-# EMAIL_HOST_PASSWORD = emHostPw
-# EMAIL_USE_TLS = True
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#
-# DEFAULT_FROM_EMAIL = fromEmail
-# SERVER_EMAIL = fromEmail
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+emHost = ""
+emPort = ""
+emHostUser  = ""
+emHostPw = ""
+fromEmail = ""
+toEmail = ""
+with open('etc/email.txt') as f:
+  fromEmail = f.readline().strip()
+  toEmail = f.readline().strip()
+  emHost = f.readline().strip()
+  emPort = f.readline().strip()
+  emHostUser = f.readline().strip()
+  emHostPw = f.readline().strip()
+EMAIL_HOST = emHost
+EMAIL_PORT = emPort
+EMAIL_HOST_USER = emHostUser
+EMAIL_HOST_PASSWORD = emHostPw
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+DEFAULT_FROM_EMAIL = fromEmail
+SERVER_EMAIL = fromEmail
