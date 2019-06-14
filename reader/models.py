@@ -50,7 +50,7 @@ class Chapter(models.Model):
   visible = models.BooleanField(default=True)
   storage_name = models.CharField(max_length=100, blank=False)
   def __str__(self):
-    displayName = "Chapter {0}".format(str(round(float(self.chap_number), 1) if float(self.chap_number) % 1 else int(self.chap_number)))
+    displayName = "Chapter {0}".format(str(round(float(self.chap_number), 2) if float(self.chap_number) % 1 else int(self.chap_number)))
     if self.vol_number != 0:
       displayName = "Volume {0} {1}".format(str(round(float(self.vol_number), 1) if float(self.vol_number) % 1 else int(self.vol_number)), displayName)
     if self.title != "":

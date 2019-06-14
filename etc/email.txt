@@ -1,4 +1,0 @@
-smtp.gmail.com
-465
-username
-password

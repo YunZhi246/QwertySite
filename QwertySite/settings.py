@@ -84,7 +84,7 @@ with open('etc/db.txt') as f:
   dbPassword = f.readline().strip()
 DATABASES = {
   'default': {
-      'ENGINE': dbEngine,
+        'ENGINE': dbEngine,
         'NAME': dbName,
         'USER': dbUser,
         'PASSWORD': dbPassword,
