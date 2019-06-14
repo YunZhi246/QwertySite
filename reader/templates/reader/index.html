@@ -107,6 +107,21 @@
             {% endfor %}
           </div>
         {% endif %}
+        {% if litc_list %}
+          <h2>Lost in the Clouds Projects</h2>
+          <div class="gallery">
+            {% for manga in litc_list %}
+              <a href="{% url 'reader:mangaDetail' manga.storage_name %}">
+                <div class="picFrame">
+                  <img src="{% static manga.pic_location %}" class="image">
+                  <div class="overlay">
+                    <div class="text">{{ manga.title }}</div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
     </div>
 
