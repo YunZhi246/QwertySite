@@ -1,5 +1,5 @@
-When using in an linux environment, find "# PRODUCTION" comments and uncomment.
-
-In files:
-QwertySite/settings.py
-reader/view.py
+Need in etc folder:
+    - env.txt
+    - email.txt
+    - db.txt
+    - secret_key.txt
