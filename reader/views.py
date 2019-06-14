@@ -244,10 +244,10 @@ def submitChapter(request):
   upload_date = timezone.now()
   # TESTING
   static = "reader\\static\\"
-  path = "reader\\mangas\\"+manga.storage_name
+  # path = "reader\\mangas\\"+manga.storage_name
   # PRODUCTION
-  # static = "static/"
-  # path = "reader/mangas/" + manga.storage_name
+  static = "static/"
+  path = "reader/mangas/" + manga.storage_name
   try:
     os.makedirs(static+path)
   except OSError as e:
@@ -259,9 +259,9 @@ def submitChapter(request):
       })    
   chapterStorageName = str(sortNumber) + upload_date.strftime("%Y-%m-%d_%H-%M-%S_%f")
   # TESTING
-  path = path + "\\" + chapterStorageName
+  # path = path + "\\" + chapterStorageName
   # PRODUCTION
-  # path = path + "/" + chapterStorageName
+  path = path + "/" + chapterStorageName
   try:
     os.makedirs(static+path)
   except OSError as e:
