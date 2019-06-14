@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+
+prod = False
+with open('etc/env.txt') as f:
+  env_line = f.readline().strip()
+  if env_line == 'production':
+      prod = True
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,12 +28,12 @@ with open('etc/secret_key.txt') as f:
  SECRET_KEY = f.read().strip()
 
 
-# TESTING
-# DEBUG = True
-# ALLOWED_HOSTS = []
-# PRODUCTION
-DEBUG = False
-ALLOWED_HOSTS = ['www.qwertyscans.com','qwertyscans.com','18.218.111.245']
+if prod:
+    DEBUG = False
+    ALLOWED_HOSTS = ['www.qwertyscans.com', 'qwertyscans.com', '18.218.111.245']
+else:
+    DEBUG = True
+    ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -110,13 +118,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# PRODUCTION
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_SSL_REDIRECT = True
-X_FRAME_OPTIONS = 'DENY'
+if prod:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_SSL_REDIRECT = True
+    X_FRAME_OPTIONS = 'DENY'
 
 
 # Internationalization
@@ -137,32 +145,24 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# TESTING
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = '.'
+if prod:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    with open('etc/email.txt') as f:
+      fromEmail = f.readline().strip()
+      toEmail = f.readline().strip()
+      emHost = f.readline().strip()
+      emPort = f.readline().strip()
+      emHostUser = f.readline().strip()
+      emHostPw = f.readline().strip()
+    EMAIL_HOST = emHost
+    EMAIL_PORT = emPort
+    EMAIL_HOST_USER = emHostUser
+    EMAIL_HOST_PASSWORD = emHostPw
+    EMAIL_USE_TLS = True
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-# PRODUCTION
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
-emHost = ""
-emPort = ""
-emHostUser  = ""
-emHostPw = ""
-fromEmail = ""
-toEmail = ""
-with open('etc/email.txt') as f:
-  fromEmail = f.readline().strip()
-  toEmail = f.readline().strip()
-  emHost = f.readline().strip()
-  emPort = f.readline().strip()
-  emHostUser = f.readline().strip()
-  emHostPw = f.readline().strip()
-EMAIL_HOST = emHost
-EMAIL_PORT = emPort
-EMAIL_HOST_USER = emHostUser
-EMAIL_HOST_PASSWORD = emHostPw
-EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-DEFAULT_FROM_EMAIL = fromEmail
-SERVER_EMAIL = fromEmail
+    DEFAULT_FROM_EMAIL = fromEmail
+    SERVER_EMAIL = fromEmail
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = '.'
