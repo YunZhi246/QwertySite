@@ -16,16 +16,15 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 with open('etc/secret_key.txt') as f:
-  SECRET_KEY = f.read().strip()
+ SECRET_KEY = f.read().strip()
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
+# TESTING
+# DEBUG = True
+# ALLOWED_HOSTS = []
+# PRODUCTION
 DEBUG = False
-
 ALLOWED_HOSTS = ['www.qwertyscans.com','qwertyscans.com','18.218.111.245']
 
 
@@ -75,16 +74,14 @@ WSGI_APPLICATION = 'QwertySite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-dbName = ""
-dbUser = ""
-dbPassword = ""
 with open('etc/db.txt') as f:
+  dbEngine = f.readline().strip()
   dbName = f.readline().strip()
   dbUser = f.readline().strip()
   dbPassword = f.readline().strip()
 DATABASES = {
   'default': {
-      'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': dbEngine,
         'NAME': dbName,
         'USER': dbUser,
         'PASSWORD': dbPassword,
@@ -112,6 +109,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# PRODUCTION
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -137,13 +136,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# TESTING
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = '.'
+
+# PRODUCTION
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 emHost = ""
 emPort = ""
 emHostUser  = ""
 emHostPw = ""
+fromEmail = ""
+toEmail = ""
 with open('etc/email.txt') as f:
+  fromEmail = f.readline().strip()
+  toEmail = f.readline().strip()
   emHost = f.readline().strip()
   emPort = f.readline().strip()
   emHostUser = f.readline().strip()
@@ -155,5 +164,5 @@ EMAIL_HOST_PASSWORD = emHostPw
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-DEFAULT_FROM_EMAIL = "noreply.qwertyscans@gmail.com"
-SERVER_EMAIL = "noreply.qwertyscans@gmail.com"
+DEFAULT_FROM_EMAIL = fromEmail
+SERVER_EMAIL = fromEmail
