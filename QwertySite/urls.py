@@ -25,3 +25,4 @@ urlpatterns = [
 ]
 
 handler404 = 'pages.views.not_found'
+handler500 = 'pages.views.not_found'
