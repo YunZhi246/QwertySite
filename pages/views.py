@@ -4,6 +4,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import BlogPost
+import random
+
 
 
 # Create your views here.
@@ -109,3 +111,14 @@ def recruitForm(request):
     email.attach_alternative(htmlContent, "text/html")
     email.send(fail_silently=False)
     return HttpResponseRedirect(reverse('pages:recruit', args=("sent",)))
+
+
+def not_found(request):
+    images = ['404.gif', '404.jpg']
+    chosen = random.choice(images)
+    path = 'pages/images/'+chosen
+    context = {
+        'image': path
+    }
+
+    return render(request, 'errors/404.html', context)

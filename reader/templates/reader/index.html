@@ -80,16 +80,13 @@
         {% if dropped_list %}
           <h2>Dropped Projects</h2>
           <div class="gallery">
-            {% for manga in dropped_list %}
-              <a href="{% url 'reader:mangaDetail' manga.storage_name %}">
-                <div class="picFrame">
-                  <img src="{% static manga.pic_location %}" class="image">
-                  <div class="overlay">
-                    <div class="text">{{ manga.title }}</div>
-                  </div>
-                </div>
-              </a>
-            {% endfor %}
+            <ul>
+              {% for manga in dropped_list %}
+                <li><a href="{% url 'reader:mangaDetail' manga.storage_name %}">
+                  {{ manga.title }}
+                </a></li>
+              {% endfor %}
+            </ul>
           </div>
         {% endif %}
         {% if future_list %}
