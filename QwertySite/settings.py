@@ -12,21 +12,17 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-
 prod = False
 with open('etc/env.txt') as f:
-  env_line = f.readline().strip()
-  if env_line == 'production':
-      prod = True
-
+    env_line = f.readline().strip()
+    if env_line == 'production':
+        prod = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 with open('etc/secret_key.txt') as f:
- SECRET_KEY = f.read().strip()
-
+    SECRET_KEY = f.read().strip()
 
 if prod:
     DEBUG = False
@@ -34,7 +30,6 @@ if prod:
 else:
     DEBUG = True
     ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -45,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-  
+
     'reader.apps.ReaderConfig',
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
@@ -68,27 +63,26 @@ TEMPLATES = [{
     'DIRS': [os.path.join(BASE_DIR, 'templates')],
     'APP_DIRS': True,
     'OPTIONS': {
-       'context_processors': [
-       'django.template.context_processors.debug',
-       'django.template.context_processors.request',
-       'django.contrib.auth.context_processors.auth',
-       'django.contrib.messages.context_processors.messages',
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
         ],
     },
 }]
 
 WSGI_APPLICATION = 'QwertySite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 with open('etc/db.txt') as f:
-  dbEngine = f.readline().strip()
-  dbName = f.readline().strip()
-  dbUser = f.readline().strip()
-  dbPassword = f.readline().strip()
+    dbEngine = f.readline().strip()
+    dbName = f.readline().strip()
+    dbUser = f.readline().strip()
+    dbPassword = f.readline().strip()
 DATABASES = {
-  'default': {
+    'default': {
         'ENGINE': dbEngine,
         'NAME': dbName,
         'USER': dbUser,
@@ -97,7 +91,6 @@ DATABASES = {
         'PORT': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -117,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 if prod:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
@@ -126,13 +118,12 @@ if prod:
     SECURE_SSL_REDIRECT = True
     X_FRAME_OPTIONS = 'DENY'
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-#TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -148,12 +139,12 @@ STATIC_URL = '/static/'
 if prod:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
     with open('etc/email.txt') as f:
-      fromEmail = f.readline().strip()
-      toEmail = f.readline().strip()
-      emHost = f.readline().strip()
-      emPort = f.readline().strip()
-      emHostUser = f.readline().strip()
-      emHostPw = f.readline().strip()
+        fromEmail = f.readline().strip()
+        toEmail = f.readline().strip()
+        emHost = f.readline().strip()
+        emPort = f.readline().strip()
+        emHostUser = f.readline().strip()
+        emHostPw = f.readline().strip()
     EMAIL_HOST = emHost
     EMAIL_PORT = emPort
     EMAIL_HOST_USER = emHostUser

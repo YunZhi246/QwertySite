@@ -3,6 +3,7 @@
 static/**
 etc/**
 pages/migrations/**
+reader/migrations/**
 reader/$MYVIMRC
 reader/static/reader/mangas/*
 .idea/*
